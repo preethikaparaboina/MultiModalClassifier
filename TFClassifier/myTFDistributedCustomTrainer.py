@@ -65,7 +65,34 @@ args = parser.parse_args()
 
 #     return image, label
 
-
+def generate_data_set:
+  file_path =  '/home/ajay/Desktop/';
+  file_patho =  '/home/ajay/Desktop/DIS/';
+  img_path_list = dir(strcat(file_path,'*.jpg'));
+  img_num = length(img_path_list);
+  if img_num > 0 
+        for j =1%img_num 
+            tic
+            j
+            image_name = img_path_list(j).name
+            image_name0=image_name(1:end-4)
+            input_im=double(imread([file_path,image_name]))
+            imtest=double(imread([file_path,image_name]))
+            RG=input_im(:,:,1)-input_im(:,:,2)
+            BG=input_im(:,:,3)-input_im(:,:,2)
+            RB=input_im(:,:,1)-input_im(:,:,3)
+            imtest(:,:,1)=BG
+            imtest(:,:,2)=RB
+            imtest(:,:,3)=RG
+            imwrite(uint8(input_im),[file_patho,image_name(1:end-4),'d0.png'])
+            imwrite(uint8(RG),[file_patho,image_name(1:end-4),'d1.png'])
+            imwrite(uint8(BG),[file_patho,image_name(1:end-4),'d2.png'])
+            imwrite(uint8(RB),[file_patho,image_name(1:end-4),'d3.png'])
+            %imshow(RG,[])
+            %finall=cat(3,RB,RG,BG)
+            imshow(imtest,[])
+            %imshow(uint8(input_im))
+        end
 def create_model(strategy,numclasses, metricname='accuracy'):
     with strategy.scope():
         model = tf.keras.Sequential([
@@ -83,15 +110,23 @@ def create_model(strategy,numclasses, metricname='accuracy'):
         return model
 
 def create_model2():
-  model = tf.keras.Sequential([
-      tf.keras.layers.Conv2D(32, 3, activation='relu'),
-      tf.keras.layers.MaxPooling2D(),
-      tf.keras.layers.Conv2D(64, 3, activation='relu'),
-      tf.keras.layers.MaxPooling2D(),
-      tf.keras.layers.Flatten(),
-      tf.keras.layers.Dense(64, activation='relu'),
-      tf.keras.layers.Dense(10)
-    ])
+  model = Sequential() 
+  model.add(Conv2D(input_shape=(224,224,3),filters=64,kernel_size=(3,3),padding="same", a ctivation=tf.nn.relu)) 
+  model.add(Conv2D(filters=64,kernel_size=(3,3),padding="same", activation=tf.nn.relu)) model.add(MaxPool2D(pool_size=(2,2),strides=(2,2))) 
+  model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Dropout(0.35)) 
+  model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(BatchNormalization()) 
+  model.add(MaxPool2D(pool_size=(2,2),strides=(2,2))) 
+  model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(MaxPool2D(pool_size=(2,2),strides=(2,2))) 
+  model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Dropout(0.35)) 
+  model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(BatchNormalization()) 
+  model.add(MaxPool2D(pool_size=(2,2),strides=(2,2))) 
+  model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation=tf.nn.relu)) model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))  
+  model.add(Flatten()) 
+  model.add(Dense(units=2048,activation=tf.nn.relu)) 
+  model.add(Dropout(0.3)) 
+  model.add(Dense(units=2048,activation=tf.nn.relu)) 
+  model.add(Dense(units=2, activation="softmax")) 
+
 
   return model
 
