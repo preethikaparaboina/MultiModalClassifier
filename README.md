@@ -18,13 +18,9 @@ If you went to uninstall the package, perform the following step
 (venv38) lkk@cmpeengr276-All-Series:~/Developer/MyRepo/MultiModalClassifier$ python setup.py develop --uninstall
 ```
 
-# Code organization
-* [DatasetTools](./DatasetTools): common tools and code scripts for processing datasets
-* [TFClassifier](./TFClassifier): Tensorflow-based classifier
-  * [myTFDistributedTrainerv2.py](./TFClassifier/myTFDistributedTrainerv2.py): main training code
-  * [myTFInference.py](./TFClassifier/myTFInference.py): main inference code
-  * [exportTFlite.py](./TFClassifier/exportTFlite.py): convert form TF model to TFlite
-* [TorchClassifier](./TorchClassifier): Pytorch-based classifier
-  * [myTorchTrainer.py](./TorchClassifier/myTorchTrainer.py): Pytorch main training code
-  * [myTorchEvaluator.py](./TorchClassifier/myTorchEvaluator.py): Pytorch model evaluation code 
+Used the PASCAL VOC dataset for training and testing the model.
+Made modifications to myTFDistributedCustomTrainer.py
+Genereated dataset from PASCAL VOC dataset for training and testing.
+Build VGG16 model to train the dataset.
+
 
