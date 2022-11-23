@@ -1,6 +1,9 @@
 Used the PASCAL VOC dataset for training and testing the model.
+
 Made modifications to myTFDistributedCustomTrainer.py
+
 Genereated dataset from PASCAL VOC dataset for training and testing.
+
 Build VGG16 model to train the dataset.
 
 ML-MODEL FLASK DEPLOYMENT:
