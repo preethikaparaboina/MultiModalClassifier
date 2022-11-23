@@ -66,8 +66,8 @@ args = parser.parse_args()
 #     return image, label
 
 def generate_data_set:
-  file_path =  '/home/ajay/Desktop/';
-  file_patho =  '/home/ajay/Desktop/DIS/';
+  file_path =  '/home/preethi/Desktop/';
+  file_patho =  '/home/preethi/Desktop/DIS/';
   img_path_list = dir(strcat(file_path,'*.jpg'));
   img_num = length(img_path_list);
   if img_num > 0 
